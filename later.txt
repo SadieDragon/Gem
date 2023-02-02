@@ -1,0 +1,13 @@
+five = false #have we found a super duper rare five?
+# x = 0
+# until (five == true)
+#   # x = rand(6)
+#   # puts x
+
+#   puts x
+#   x += 1
+  
+#   if x == 5
+#     five = true
+#   end
+# end

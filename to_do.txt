@@ -1,0 +1,5 @@
+lines 54-72 are currently a function. given how 74-87 are written, does it *need* to be a function? (all of that minus 1, i'm lazy)
+need to get it to a point it spits out spreadsheet readable. idk how yet. figure that out
+also, move everything into... run until you get the five star?
+too tired to make a to-do list
+
