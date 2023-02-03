@@ -8,7 +8,7 @@ def egg(eggy)
     upper += eggy[color]
 
     #shouldn't need to really check for a failstate
-    (return color) if (egg_number > lower) and (egg_number <= upper)
+    (return color) if ((egg_number > lower) and (egg_number <= upper))
 
     lower = upper
   end
@@ -21,10 +21,7 @@ geo = {
   "star5" => 4.5
 }
 
-temp_inv = [] #when nested, this will get shoved into a larger.. array
-10.times {temp_inv.push(egg(geo))}
-
-#questions
+#the possible gems. (2/3/4/5 of 5 are all the same)
 gems = {
   "star1" => ["trickshot", "black-rose", "everlasting-torment", "chained_death", "berserkers_eye", "mocking_laughter", "zod_stone", "caarsens_invigoration", "defiant_soul", "freedom_and_devotion", "nightmare_wreath", "respite_stone", "seleds_weakening", "pain_of_subjugation"],
   "star2" => ["power-and-command", "hunger", "bloody-reach", "cutthroats_grin", "lightning_core", "battleguard", "followers_burden", "unity_crystal"],
@@ -57,7 +54,9 @@ fso = {
   5 => 1
 }
 
-temp_inv.each do |thing|
+10.times do
+  thing = egg(geo)
+
   gem_type = gems[thing]
   gem = gem_type[rand(0..(gem_type.length - 1))]
 
