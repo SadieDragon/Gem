@@ -14,8 +14,6 @@ def egg(eggy)
   end
 end
 
-#gem types (5 rolls from the next two)
-gt = [1, 2, 5]
 #the odds of each (youch)
 geo = {
   "star1" => 75.4,
@@ -51,8 +49,6 @@ star = {
   5       => "#{star2}#{space}#{star2}#{sf}"
 }
 
-#five star types
-fst = [2, 3, 4, 5]
 #five star odds
 fso = {
   2 => 75,
