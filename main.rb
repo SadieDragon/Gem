@@ -4,7 +4,7 @@ def egg(eggy)
   egg_number = (rand() * sum)
 
   lower = upper = 0 # STEAL HIS SMART IDEA
-  eggy.keys.each_with_index do |color, index|
+  eggy.keys.each do |color|
     upper += eggy[color]
 
     #shouldn't need to really check for a failstate
