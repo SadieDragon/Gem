@@ -1,4 +1,4 @@
-=begin
+
 #for future me to get what in the world this mess is
 fs = "\u{2605}" #full_star
 es = "\u{2606}" #empty_star
@@ -11,39 +11,46 @@ star1 = fs
 star2 = "#{fs}#{sf}"
 star5 = ["#{star2}#{se}#{se}#{se}", "#{star2}#{sf}#{se}#{se}", "#{star2}#{space}#{star2}#{se}", "#{star2}#{space}#{star2}#{sf}"]
 
-#https://www.rubyguides.com/2016/05/weighted-random-numbers/
-def random_weighted(weighted)
-  #The inject method takes a block of two arguments. The first argument is 
-  #an accumulator (the running total of the expression being evaluated), 
-  #and the second is the current array item. 
-  #(https://www.delftstack.com/howto/ruby/use-ruby-inject-method/)
-  max = weighted.inject(0) { |sum, (item, weight)| sum + weight }
-  
-  target = rand(1..max)
-  
-  weighted.each do |item, weight|
-    return item.to_s if target <= weight
-    target -= weight
+def egg(eggy)
+  sum = eggy.values.sum
+  egg_number = (rand() * sum)
+
+  lower = upper = 0 # STEAL HIS SMART IDEA
+  eggy.keys.each_with_index do |color, index|
+    upper += eggy[color]
+
+    #shouldn't need to really check for a failstate
+    (return color) if (egg_number > lower) and (egg_number <= upper)
+
+    lower = upper
   end
 end
 
-#whatever. it works, I'll just, borrow that until I figure this out on my 
-#own. (I am slightly miffed at myself for being stuck on this)
+#gem types (5 rolls from the next two)
+gt = [1, 2, 5]
+#the odds of each (youch)
+geo = {
+  "star1" => 75.4,
+  "star2" => 20.1,
+  "5" => 4.5
+}
 
-gt = [1, 2, 5]           #gem types (5 rolls from the next two)
-geo = [75.4, 20.1, 4.5]  #the odds of each (youch)
-
+#star types
 fst = [2, 3, 4, 5]
-fso = [75, 20, 4, 1] #1%, in an already less than 5%? ouch
+#five star odds
+fso = {
+  0 => 75,
+  1 => 20,
+  2 => 4,
+  3 => 1
+}
 
 temp_inv = [] #when nested, this will get shoved into a larger.. array
 10.times do
-  roll = random_weighted("star1": 75.4, "star2": 20.1, "5": 4.5)
+  roll = egg(geo)
 
   #if we rolled a chance at one of the 5 star gems
-  if roll == "5"
-    roll = random_weighted("0": 75, "1": 20, "2": 4, "3": 1).to_i
-  end
+  (roll = egg(fso)) if (roll == "5")
   
   temp_inv.push(roll)
 end
@@ -84,6 +91,3 @@ temp_inv.each do |thing|
   
   puts "You recieved a #{out_star} #{pick_gem(gem)}."
 end
-=end
-
-eval File.read("demo.rb")
