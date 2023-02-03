@@ -1,16 +1,4 @@
 
-#for future me to get what in the world this mess is
-fs = "\u{2605}" #full_star
-es = "\u{2606}" #empty_star
-space = "\u{20}" #there's a reason?
-#and because i hate the spam of this
-sf = "#{space}#{fs}" #Space before a full star
-se = "#{space}#{es}" #space before an empty star
-#funny output
-star1 = fs
-star2 = "#{fs}#{sf}"
-star5 = ["#{star2}#{se}#{se}#{se}", "#{star2}#{sf}#{se}#{se}", "#{star2}#{space}#{star2}#{se}", "#{star2}#{space}#{star2}#{sf}"]
-
 def egg(eggy)
   sum = eggy.values.sum
   egg_number = (rand() * sum)
@@ -32,62 +20,52 @@ gt = [1, 2, 5]
 geo = {
   "star1" => 75.4,
   "star2" => 20.1,
-  "5" => 4.5
-}
-
-#star types
-fst = [2, 3, 4, 5]
-#five star odds
-fso = {
-  0 => 75,
-  1 => 20,
-  2 => 4,
-  3 => 1
+  "star5" => 4.5
 }
 
 temp_inv = [] #when nested, this will get shoved into a larger.. array
-10.times do
-  roll = egg(geo)
+10.times {temp_inv.push(egg(geo))}
 
-  #if we rolled a chance at one of the 5 star gems
-  (roll = egg(fso)) if (roll == "5")
-  
-  temp_inv.push(roll)
-end
+#questions
+gems = {
+  "star1" => ["trickshot", "black-rose", "everlasting-torment", "chained_death", "berserkers_eye", "mocking_laughter", "zod_stone", "caarsens_invigoration", "defiant_soul", "freedom_and_devotion", "nightmare_wreath", "respite_stone", "seleds_weakening", "pain_of_subjugation"],
+  "star2" => ["power-and-command", "hunger", "bloody-reach", "cutthroats_grin", "lightning_core", "battleguard", "followers_burden", "unity_crystal"],
+  "star5" => ["bottled-hope", "phoenix-ashes", "bsj", "chip_of_stoned_flesh", "echoing_shade", "howlers_call", "zwensons_haunting", "seeping_bile", "blessing_of_the_worthy"]
+}
 
-#does this even need to be a function? Not anymore? *sigh*
-def pick_gem(thing)
-  gem1 = ["trickshot", "black-rose", "everlasting-torment", "chained_death", "berserkers_eye", "mocking_laughter", "zod_stone", "caarsens_invigoration", "defiant_soul", "freedom_and_devotion", "nightmare_wreath", "respite_stone", "seleds_weakening", "pain_of_subjugation"]
-  gem2 = ["power-and-command", "hunger", "bloody-reach", "cutthroats_grin", "lightning_core", "battleguard", "followers_burden", "unity_crystal"]
-  #2, 3, 4, 5 star varients
-  gem5 = ["bottled-hope", "phoenix-ashes", "bsj", "chip_of_stoned_flesh", "echoing_shade", "howlers_call", "zwensons_haunting", "seeping_bile", "blessing_of_the_worthy"]
+#for future me to get what in the world this mess is
+fs = "\u{2605}" #full_star
+es = "\u{2606}" #empty_star
+space = "\u{20}" #there's a reason?
+#and because i hate the spam of this
+sf = "#{space}#{fs}" #Space before a full star
+se = "#{space}#{es}" #space before an empty star
+#funny output
+star2 = "#{fs}#{sf}"
+star = {
+  "star1" => fs,
+  "star2" => star2,
+  2       => "#{star2}#{se}#{se}#{se}",
+  3       => "#{star2}#{sf}#{se}#{se}",
+  4       => "#{star2}#{space}#{star2}#{se}",
+  5       => "#{star2}#{space}#{star2}#{sf}"
+}
 
-  #thing is treated as an index here
-  lengths = [gem1.length, gem2.length, gem5.length]
-  g = rand(0..(lengths[thing] - 1))
-  
-  if thing == 0
-    g = gem1[g]
-  elsif thing == 1
-    g = gem2[g]
-  else
-    g = gem5[g]
-  end
-
-  return g
-end
+#five star types
+fst = [2, 3, 4, 5]
+#five star odds
+fso = {
+  2 => 75,
+  3 => 20,
+  4 => 4,
+  5 => 1
+}
 
 temp_inv.each do |thing|
-  if thing == "star1"
-    gem = 0
-    out_star = star1
-  elsif thing == "star2"
-    gem = 1
-    out_star = star2
-  else
-    gem = 2
-    out_star = star5[thing]
-  end
-  
-  puts "You recieved a #{out_star} #{pick_gem(gem)}."
+  gem_type = gems[thing]
+  gem = gem_type[rand(0..(gem_type.length - 1))]
+
+  (thing = egg(fso)) if (thing == "star5")
+
+  puts "You recieved a #{star[thing]} #{gem}."
 end
